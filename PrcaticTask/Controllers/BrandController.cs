@@ -33,5 +33,24 @@ namespace PrcaticTask.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+        public async Task<IActionResult> EditBrand(int? id)
+        {
+            if (id != null)
+            {
+                Brand? brand = await _context.Brand.FirstOrDefaultAsync(p => p.Id == id);
+                if (brand != null) return View(brand);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditBrand(Brand brand)
+        {
+            _context.Brand.Update(brand);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
