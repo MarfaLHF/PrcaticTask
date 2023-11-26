@@ -1,0 +1,49 @@
+﻿@model List<Model>
+
+<h1>Все модели</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название модели</th>
+            <th>Марка модели</th>
+            <th>Статус</th>
+            <th>Изменение</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@((item.ActiveStatus == 0) ? "table-secondary" : "")">
+                <td>@item.ModelName</td>
+
+                <td>
+                    @if (item.Brand != null)
+                    {
+                        <a>@item.Brand.BrandName</a>
+                    }
+                    else
+                    {
+                        <span>Нет бренда</span>
+                    }
+                </td>
+
+                <td>
+                    @if (item.ActiveStatus == 1)
+                    {
+                        <a>Активный</a>
+                    }
+                    else
+                    {
+                        <a>Не активный</a>
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Редактировать" asp-route-id="@item.Id">Редактировать</a>
+                    <a asp-action="Удалить" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

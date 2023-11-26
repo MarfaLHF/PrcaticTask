@@ -5,19 +5,18 @@ using PrcaticTask.Models;
 
 namespace PrcaticTask.Controllers
 {
-    public class BrandController : Controller
+    public class ModelController : Controller
     {
         private readonly PrcaticTaskContext _context;
 
-        public BrandController(PrcaticTaskContext context)
+        public ModelController(PrcaticTaskContext context)
         {
             _context = context;
         }
         public IActionResult Index()
         {
-            var brands = _context.Brand.ToList();
-            return View(brands);
+            var models = _context.Model.Include(m => m.Brand).ToList();
+            return View(models);
         }
-
     }
 }
