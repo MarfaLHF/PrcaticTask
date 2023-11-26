@@ -1,9 +1,26 @@
+using Microsoft.EntityFrameworkCore;
+using PrcaticTask.Models;
+using PrcaticTask.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<PrcaticTaskContext>(options =>
+{
+    options.UseSqlServer(
+        connection,
+        sqlServerOptionsAction: sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,  // Максимальное количество попыток
+                maxRetryDelay: TimeSpan.FromSeconds(30),  // Задержка между попытками
+                errorNumbersToAdd: null
+            );
+        }
+    );
+}); var app = builder.Build();
 
-var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

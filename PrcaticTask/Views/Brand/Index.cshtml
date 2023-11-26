@@ -1,0 +1,25 @@
+﻿@model List<Brand>
+
+<h2>All Brands</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand Name</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var brand in Model)
+        {
+            <tr>
+                <td>@brand.BrandName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@brand.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@brand.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
