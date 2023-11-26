@@ -18,5 +18,17 @@ namespace PrcaticTask.Controllers
             var models = _context.Model.Include(m => m.Brand).ToList();
             return View(models);
         }
+        public IActionResult CreateModel()
+        {
+            ViewBag.Brands = _context.Brand.ToList();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateModel(Model model)
+        {
+            _context.Model.Add(model);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }
 }
