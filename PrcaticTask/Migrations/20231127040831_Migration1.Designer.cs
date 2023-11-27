@@ -11,8 +11,8 @@ using PrcaticTask.Data;
 namespace PrcaticTask.Migrations
 {
     [DbContext(typeof(PrcaticTaskContext))]
-    [Migration("20231126091547_Migrate1")]
-    partial class Migrate1
+    [Migration("20231127040831_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

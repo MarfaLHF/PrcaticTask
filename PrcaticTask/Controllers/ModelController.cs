@@ -13,11 +13,22 @@ namespace PrcaticTask.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? brandId)
         {
             var models = _context.Model.Include(m => m.Brand).ToList();
-            return View(models);
+
+            var groupedModels = models.GroupBy(m => m.Brand);
+
+            if (brandId != null)
+            {
+                groupedModels = groupedModels.Where(group => group.Key?.Id == brandId);
+            }
+
+            return View(groupedModels);
         }
+
+
+
 
 
         public IActionResult CreateModel()
